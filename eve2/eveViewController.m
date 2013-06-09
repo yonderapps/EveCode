@@ -84,6 +84,44 @@ BOOL isPlaying;
     [super viewDidUnload];
 }
 
+- (IBAction) pressIntroScreenButton{
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"HH mm a"];
+    self.wakeTimeLabel.text = [NSString stringWithFormat:@"%@",[dateFormat stringFromDate:[NSDate date]]];
+    
+    NSDateFormatter *dateForAlarm = [[NSDateFormatter alloc] init];
+    [dateForAlarm setDateFormat:@"HH"];
+    NSString *hours = [NSString stringWithFormat:@"%@", [dateFormat stringFromDate:[[NSDate date] dateByAddingTimeInterval: self.rotaryKnob.value*800]]];
+    
+    [dateForAlarm setDateFormat:@"mm"];
+    NSString *minutes = [NSString stringWithFormat:@"%@", [dateFormat stringFromDate:[[NSDate date] dateByAddingTimeInterval: self.rotaryKnob.value*800]]];
+    
+    float minutesPastHour = [minutes intValue];
+    int hoursInt = [hours intValue];
+    float minutesPercentage = (minutesPastHour/60) *100;
+    
+    float Hm = (hoursInt*100)+minutesPercentage;
+    NSLog(@"%f",Hm);
+    NSLog(@"%f",self.rotaryKnob.value);
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    CGPoint center = [_skyBack center];
+    center.x = 160;
+    center.y = Hm - 400;
+    [_skyBack setCenter:center];
+    [UIView commitAnimations];
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:1.5];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    self.introScreen.alpha = 0;
+    [UIView commitAnimations];
+}
+
+
 - (IBAction)rotaryKnobDidChange{
     
     [UIView beginAnimations:nil context:NULL];
@@ -214,6 +252,7 @@ BOOL isPlaying;
     wakeAlarm.fireDate = provisionalAlarmTime;
     wakeAlarm.alertBody = @"Good morning to you!";
     wakeAlarm.soundName = alarmNameString;
+    wakeAlarm.alertLaunchImage = @"morningImage1.png";
     
     [wakeAlarm setHasAction:YES];
     
@@ -223,7 +262,8 @@ BOOL isPlaying;
     UILocalNotification *reminderAlarm = [[UILocalNotification alloc]init];
     
     reminderAlarm.fireDate = [provisionalAlarmTime dateByAddingTimeInterval:-hourOfSleep*60*60];
-    reminderAlarm.alertBody = @"Time to go to bed!";
+    reminderAlarm.alertBody = @"If you go to sleep now, you will feel refreshed & energised in the morning.";
+    reminderAlarm.soundName = @"sleepAlarm1.wav";
         
     NSComparisonResult reminderResult = [[provisionalAlarmTime dateByAddingTimeInterval:-hourOfSleep*60*60] compare:[NSDate date]];
     

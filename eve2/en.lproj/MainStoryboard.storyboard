@@ -516,16 +516,35 @@
                                     <action selector="pressSetAlarmButton" destination="2" eventType="touchUpInside" id="bmk-VI-dex"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58G-Lg-xJB">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="550" id="PeQ-A9-ui1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="introImage1.png">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressIntroScreenButton" destination="2" eventType="touchDown" id="ivz-vG-INy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="4SL-H3-fGc" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="user" id="3er-TZ-yF6"/>
+                            <constraint firstItem="58G-Lg-xJB" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="5F4-1o-V4i"/>
+                            <constraint firstAttribute="centerY" secondItem="58G-Lg-xJB" secondAttribute="centerY" type="user" id="8G9-KN-zxp"/>
                             <constraint firstItem="m0Z-FF-UZh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3" secondAttribute="top" constant="60" type="user" id="9iL-b9-vCd"/>
                             <constraint firstItem="4SL-H3-fGc" firstAttribute="top" secondItem="W7W-Kk-MHg" secondAttribute="bottom" constant="-176" type="user" id="BtS-KO-2pP"/>
                             <constraint firstItem="Web-Ay-8ro" firstAttribute="leading" secondItem="W7W-Kk-MHg" secondAttribute="trailing" constant="-235" type="user" id="Inq-u0-yWo"/>
                             <constraint firstItem="rMr-JY-Gmd" firstAttribute="top" secondItem="3" secondAttribute="top" priority="1" constant="-1632" type="user" id="JiT-Jy-wKE"/>
                             <constraint firstItem="rMr-JY-Gmd" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="NPX-dX-bsc"/>
+                            <constraint firstAttribute="centerX" secondItem="58G-Lg-xJB" secondAttribute="centerX" type="user" id="Qjt-nr-7A0"/>
                             <constraint firstItem="rMr-JY-Gmd" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="Smd-ue-IPj"/>
                             <constraint firstItem="m0Z-FF-UZh" firstAttribute="centerX" secondItem="Chw-u4-htH" secondAttribute="centerX" type="default" id="Xvu-Eb-PBW"/>
                             <constraint firstItem="4SL-H3-fGc" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="c81-Uv-mC1"/>
@@ -548,6 +567,7 @@
                         <outlet property="closeEveView" destination="c4O-Ok-dbO" id="UXd-E5-f4g"/>
                         <outlet property="dragInstructions" destination="Chw-u4-htH" id="zoy-HY-n3w"/>
                         <outlet property="eveWillWakeLabel" destination="m0Z-FF-UZh" id="qp5-Me-TcA"/>
+                        <outlet property="introScreen" destination="58G-Lg-xJB" id="0BR-hO-owf"/>
                         <outlet property="menuButton" destination="i74-Ir-Bxp" id="It5-wO-bhK"/>
                         <outlet property="menuHourFormatLabel" destination="XE3-fi-DZd" id="Cfw-CS-nh6"/>
                         <outlet property="menuView" destination="4SL-H3-fGc" id="loJ-jH-dGe"/>
@@ -581,68 +601,13 @@
         <image name="KnobCentreOff@2x.png" width="280" height="280"/>
         <image name="downArrow@2x.png" width="70" height="70"/>
         <image name="drag002@2x.png" width="454" height="125"/>
+        <image name="introImage1.png" width="640" height="1136"/>
         <image name="leftarrow2.png" width="16" height="16"/>
         <image name="menuBack@2x.png" width="640" height="1136"/>
         <image name="rightarrow2.png" width="16" height="16"/>
         <image name="settingsIcon.png" width="16" height="16"/>
         <image name="sky8.png" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="MHRotaryKnob" superclassName="UIControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MHRotaryKnob.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="eveViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/eveViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeHourFormat"/>
-                <relationship kind="action" name="lessHours"/>
-                <relationship kind="action" name="moreHours"/>
-                <relationship kind="action" name="nextAlarm"/>
-                <relationship kind="action" name="pressResetButton"/>
-                <relationship kind="action" name="pressReturnSetSettingsButton"/>
-                <relationship kind="action" name="pressSetAlarmButton"/>
-                <relationship kind="action" name="pressSettingsButton"/>
-                <relationship kind="action" name="pressSettingsReturnButton"/>
-                <relationship kind="action" name="pressSoundButton"/>
-                <relationship kind="action" name="prevAlarm"/>
-                <relationship kind="action" name="rotaryKnobDidChange"/>
-                <relationship kind="action" name="setAlarm"/>
-                <relationship kind="outlet" name="alarmNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="closeEveView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="dragInstructions" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="eveWillRemindYouTest" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="eveWillWakeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="knobCentre" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="menuButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="menuHourFormatLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="menuView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="reminderTimeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="reminderTimeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="resetButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="resetButtonView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="returnSetSettingsButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="returnSetSettingsView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="rotaryKnob" candidateClass="MHRotaryKnob"/>
-                <relationship kind="outlet" name="setAlarmButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="setAlarmButtonView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="setFinalAlarmButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="setPhoneToLoudModeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="setToLoudModeView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="settingsReturnButtonView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="skyBack" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="sleepLengthLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="sleepLengthLabelView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="slider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="soundButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="soundNameLabelView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="timeFormatLabelView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="wakeTimeLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

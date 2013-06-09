@@ -45,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *eveWillWakeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *soundButton;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+@property (weak, nonatomic) IBOutlet UIButton *introScreen;
 
 - (IBAction)rotaryKnobDidChange;
 - (IBAction) setAlarm;
@@ -59,5 +60,7 @@
 - (IBAction) pressResetButton;
 - (IBAction) pressReturnSetSettingsButton;
 - (IBAction) pressSoundButton;
+- (IBAction) pressIntroScreenButton;
+
 
 @end
