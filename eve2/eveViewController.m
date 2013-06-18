@@ -70,7 +70,7 @@ BOOL isPlaying;
     
     
     hourFormat = @"HH mm a";
-    alarmNameString = @"eveAlarm1.wav";
+    alarmNameString = @"eveAlarm4.wav";
     hourOfSleep = 8;
     self.sleepLengthLabel.text = [NSString stringWithFormat:@"%i hours",hourOfSleep];
     phoneModel = [[UIDevice currentDevice]model];
@@ -123,6 +123,8 @@ BOOL isPlaying;
 
 
 - (IBAction)rotaryKnobDidChange{
+    
+    self.setAlarmButton.enabled = NO;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.5];
@@ -180,8 +182,8 @@ BOOL isPlaying;
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     CGPoint center = [self.menuView center];
     center.x = 160;
-    if([phoneModel isEqual: @"iPhone Simulator"]){
-        center.y = 460;}else{
+    if([phoneModel isEqual: @"iPhone 5"]){
+        center.y = 495;}else{
     center.y = 405;
         }
     [self.menuView setCenter:center];
@@ -250,9 +252,8 @@ BOOL isPlaying;
         
     UILocalNotification *wakeAlarm = [[UILocalNotification alloc]init];
     wakeAlarm.fireDate = provisionalAlarmTime;
-    wakeAlarm.alertBody = @"Good morning to you!";
+    wakeAlarm.alertBody = [self wakeMessage];
     wakeAlarm.soundName = alarmNameString;
-    wakeAlarm.alertLaunchImage = @"morningImage1.png";
     
     [wakeAlarm setHasAction:YES];
     
@@ -262,7 +263,7 @@ BOOL isPlaying;
     UILocalNotification *reminderAlarm = [[UILocalNotification alloc]init];
     
     reminderAlarm.fireDate = [provisionalAlarmTime dateByAddingTimeInterval:-hourOfSleep*60*60];
-    reminderAlarm.alertBody = @"If you go to sleep now, you will feel refreshed & energised in the morning.";
+    reminderAlarm.alertBody = @"Feeling sleepy? If you go to bed now, you will feel refreshed & energised in the morning";
     reminderAlarm.soundName = @"sleepAlarm1.wav";
         
     NSComparisonResult reminderResult = [[provisionalAlarmTime dateByAddingTimeInterval:-hourOfSleep*60*60] compare:[NSDate date]];
@@ -282,8 +283,8 @@ BOOL isPlaying;
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     CGPoint center = [self.menuView center];
     center.x = 160;
-    if([phoneModel isEqual: @"iPhone Simulator"]){
-        center.y = 460;}else{
+    if([phoneModel isEqual: @"iPhone 5"]){
+        center.y = 495;}else{
     center.y = 405;
         };
     [self.menuView setCenter:center];
@@ -342,7 +343,7 @@ BOOL isPlaying;
     
     
     [UIView commitAnimations];
-
+    [_audioPlayer stop];
     
 }
 
@@ -362,8 +363,8 @@ BOOL isPlaying;
         CGPoint center = [self.menuView center];
         center.x = 160;
     
-    if([[[UIDevice currentDevice]model] isEqual: @"iPhone Simulator"]){
-        center.y = 460;
+    if([[[UIDevice currentDevice]model] isEqual: @"iPhone 5"]){
+        center.y = 495;
     }else{
         center.y = 405;
     }
@@ -413,8 +414,8 @@ BOOL isPlaying;
         CGPoint center = [self.menuView center];
         center.x = 160;
     
-    if([[[UIDevice currentDevice]model] isEqual: @"iPhone Simulator"]){
-        center.y = 615;
+    if([[[UIDevice currentDevice]model] isEqual: @"iPhone 5"]){
+        center.y = 670;
     }else{
         center.y = 585;
     }
@@ -461,6 +462,7 @@ BOOL isPlaying;
     
     self.rotaryKnob.alpha = 0.4;
 
+    [_audioPlayer stop];
     }
 - (IBAction) pressReturnSetSettingsButton{
     
@@ -469,8 +471,8 @@ BOOL isPlaying;
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     CGPoint center = [self.menuView center];
     center.x = 160;
-    if([[[UIDevice currentDevice]model] isEqual: @"iPhone Simulator"]){
-        center.y = 615;
+    if([[[UIDevice currentDevice]model] isEqual: @"iPhone 5"]){
+        center.y = 670;
     }else{
         center.y = 585;
     }
@@ -515,7 +517,7 @@ BOOL isPlaying;
     [UIView commitAnimations];
 
     self.rotaryKnob.alpha = 0.4;
-
+    [_audioPlayer stop];
 }
 
 
@@ -628,8 +630,8 @@ BOOL isPlaying;
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     CGPoint center = [self.menuView center];
     center.x = 160;
-    if([[[UIDevice currentDevice]model] isEqual: @"iPhone Simulator"]){
-        center.y = 615;
+    if([[[UIDevice currentDevice]model] isEqual: @"iPhone 5"]){
+        center.y = 670;
     }else{
         center.y = 585;
     }
@@ -689,6 +691,22 @@ BOOL isPlaying;
     self.rotaryKnob.alpha = 0.4;
 
 }
+
+-(NSString *) wakeMessage
+{
+    NSString* wakeMessageString;
+    NSArray* wakeMessageArr = [NSArray arrayWithObjects: @"Good Morning! An early-morning walk is a blessing for the whole day, according to Henry David Thoreau",
+                        @"Think in the morning, act in the noon, eat in the evening, sleep in the night - Sound advice from William Blake", @"Each morning when I awake, I exprience again a supreme pleasure: That of being Salvador Dali - Wise words from Salvador Dali", @"Lose an hour in the morning and you will spend all day looking for it - Richard Whately!", @"When I wake up in the morning, I feel just like any other insecure 24-year-old girl - Lady Gaga",
+                        @"I became a musician so I didn't have to wake up at 6 in the morning - Norah Jones", @"I get up in the morning, looking for an adventure - George Foreman!", nil];
+    NSUInteger randomIndex = arc4random() % [wakeMessageArr count];
+    wakeMessageString = [wakeMessageArr objectAtIndex: randomIndex];
+    return wakeMessageString;
+}
+
+-(IBAction) knobEnabled{
+    self.setAlarmButton.enabled = YES;
+}
+
 
 - (void)didReceiveMemoryWarning
 {

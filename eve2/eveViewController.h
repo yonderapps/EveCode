@@ -61,6 +61,7 @@
 - (IBAction) pressReturnSetSettingsButton;
 - (IBAction) pressSoundButton;
 - (IBAction) pressIntroScreenButton;
+- (IBAction) knobEnabled;
 
 
 @end
